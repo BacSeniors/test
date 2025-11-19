@@ -1,0 +1,316 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lebanon National Week — Grade 9C</title>
+  <meta name="description" content="Lebanon National Week — Grade 9C project celebrating Lebanese culture, food, music and heritage." />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --cedar:#ed1c24;
+      --forest:#00a651;
+      --gold:#ffd166;
+      --bg:#fbfbfb;
+      --muted:#6b7280;
+    }
+    html,body {
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background-color: var(--bg);
+      color: #0f172a;
+      scroll-behavior: smooth;
+    }
+
+    .lebanese-ribbon {
+      background: linear-gradient(90deg,
+        rgba(237,28,36,0.90) 0%,
+        rgba(237,28,36,0.55) 25%,
+        rgba(0,166,81,0.55) 75%,
+        rgba(0,166,81,0.90) 100%
+      );
+      border-radius: 12px;
+    }
+
+    .card-shadow { box-shadow: 0 10px 30px rgba(2,6,23,0.06); }
+    .muted { color: var(--muted); }
+
+    /* Hero background */
+    .hero-bg {
+      background: linear-gradient(90deg,
+        rgba(237,28,36,0.20) 0%,
+        rgba(237,28,36,0.10) 50%,
+        rgba(0,166,81,0.20) 100%), 
+        url('https://upload.wikimedia.org/wikipedia/commons/1/1a/Pigeon_Rocks_-_Raouche%2C_Beirut.jpg') center/cover no-repeat;
+      border-radius: 1rem;
+      padding: 4rem 2rem;
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scroll fix for sticky header */
+    section {
+      scroll-margin-top: 100px;
+    }
+
+    .hero-credit { font-size: 0.75rem; color: rgba(15,23,42,0.6); }
+
+    /* Vimeo responsive */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+      margin-top: 1.5rem;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    /* Modern mobile fullscreen button */
+    #fullScreenBtn {
+      @apply absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 text-[var(--cedar)] font-semibold px-4 py-2 rounded-full shadow-lg hover:bg-white/100 hover:scale-105 transition transform md:hidden;
+    }
+    #fullScreenBtn svg {
+      @apply w-5 h-5;
+    }
+  </style>
+
+</head>
+<body class="antialiased">
+
+  <!-- Header -->
+
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-10 rounded overflow-hidden border-2 border-[var(--gold)] card-shadow">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Flag_of_Lebanon.svg/320px-Flag_of_Lebanon.svg.png" alt="Lebanon flag" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <h1 class="text-lg md:text-2xl font-semibold">Lebanon National Week</h1>
+          <p class="text-sm muted">Grade 9C — Celebrating our heritage</p>
+        </div>
+      </div>
+
+```
+  <!-- Desktop nav -->
+  <nav class="hidden md:flex items-center gap-6 text-sm">
+    <a href="#about" class="nav-link hover:text-[var(--cedar)] transition">About</a>
+    <a href="#events" class="nav-link hover:text-[var(--forest)] transition">Events</a>
+    <a href="#announce" class="nav-link hover:text-[var(--gold)] transition">Announcements</a>
+  </nav>
+
+  <!-- Mobile menu button -->
+  <div class="md:hidden">
+    <button id="menuBtn" class="p-2 rounded-md bg-white border shadow-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+</div>
+```
+
+  </header>
+
+  <!-- Mobile nav -->
+
+  <div id="mobileNav" class="hidden bg-white border-b shadow-sm md:hidden">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex flex-col gap-2">
+      <a href="#about" class="mobile-link py-2">About</a>
+      <a href="#events" class="mobile-link py-2">Events</a>
+      <a href="#announce" class="mobile-link py-2">Announcements</a>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-6 py-12">
+
+```
+<!-- HERO -->
+<section class="hero-bg text-center space-y-6 reveal">
+  <div class="lebanese-ribbon p-3 rounded-md inline-block text-white font-semibold card-shadow">
+    Celebrate Lebanon — Grade 9C Project
+  </div>
+
+  <h2 class="text-3xl md:text-4xl font-bold mt-4">Welcome to Lebanon National Week</h2>
+
+  <p class="muted max-w-xl mx-auto">
+    Join Grade 9C as we celebrate the culture, food, music and stories that make Lebanon unique.
+  </p>
+
+  <div class="flex justify-center flex-wrap gap-3 mt-3">
+    <a href="#events" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[var(--cedar)] text-white font-semibold shadow hover:opacity-95 nav-link">See Events</a>
+    <a href="#announce" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm hover:shadow nav-link">Announcements</a>
+  </div>
+
+  <p class="hero-credit mt-2">by Simon Berchan</p>
+</section>
+
+<!-- ABOUT (Vimeo video) -->
+<section id="about" class="mt-16 reveal">
+  <div class="bg-white rounded-2xl p-6 card-shadow">
+    <h3 class="text-2xl font-semibold mb-3">About Lebanon National Week</h3>
+    <p class="muted leading-relaxed">
+      Lebanon National Week is a student-led celebration honoring Lebanese culture, history and creativity.
+    </p>
+
+    <!-- Vimeo video with modern mobile fullscreen button -->
+    <div class="video-wrapper relative">
+      <iframe 
+        id="vimeoVideo"
+        src="https://player.vimeo.com/video/1137461016?badge=0&autopause=0&player_id=0&app_id=58479" 
+        allow="fullscreen; picture-in-picture" 
+        allowfullscreen 
+        title="National Week Final Video">
+      </iframe>
+
+      <!-- Mobile-only fullscreen button -->
+      <button id="fullScreenBtn" class="md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3H5a2 2 0 00-2 2v3m0 8v3a2 2 0 002 2h3m8-16h3a2 2 0 012 2v3m0 8v3a2 2 0 01-2 2h-3"/>
+        </svg>
+        Full Screen
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events" class="mt-14 reveal">
+  <h3 class="text-2xl font-semibold mb-4">Event Schedule</h3>
+  <p class="text-sm muted mb-6">Activities will appear here soon.</p>
+
+  <div class="space-y-4">
+    <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-200">
+      <h4 class="font-semibold">National Week Activities</h4>
+      <p class="text-sm muted">Location: Playground</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANNOUNCEMENTS -->
+<section id="announce" class="mt-14 reveal">
+  <h3 class="text-2xl font-semibold mb-4">Important Announcements</h3>
+  <div class="bg-white p-10 text-center rounded-2xl border border-slate-200 muted">
+    <p class="font-semibold text-lg">Are You Ready?</p>
+  </div>
+</section>
+```
+
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="bg-gradient-to-r from-[var(--cedar)] to-[var(--forest)] text-white py-8 reveal">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h4 class="font-semibold text-lg">Lebanon National Week</h4>
+        <p class="text-sm mt-2 text-white/90">A Grade 9C project celebrating heritage.</p>
+      </div>
+
+```
+  <div class="text-sm">
+    <h5 class="font-semibold">Quick Links</h5>
+    <ul class="mt-3 space-y-2">
+      <li><a class="hover:underline" href="#about">About</a></li>
+      <li><a class="hover:underline" href="#events">Events</a></li>
+      <li><a class="hover:underline" href="#announce">Announcements</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="max-w-6xl mx-auto px-6 mt-6 text-sm text-white/80 border-t border-white/10 pt-4">
+  &copy; 2025 Grade 9C — Lebanon National Week. All rights reserved.
+</div>
+```
+
+  </footer>
+
+  <!-- Scripts -->
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+
+    // Scroll with header offset
+    const header = document.querySelector('header');
+    function scrollToWithOffset(hash) {
+      const element = document.querySelector(hash);
+      if (!element) return;
+      const offset = header.offsetHeight + 8;
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        scrollToWithOffset(this.getAttribute('href'));
+      });
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        mobileNav.classList.add('hidden');
+        scrollToWithOffset(this.getAttribute('href'));
+      });
+    });
+
+    document.querySelectorAll('footer a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        scrollToWithOffset(this.getAttribute('href'));
+      });
+    });
+
+    // Reveal items on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Mobile fullscreen button
+    const fullScreenBtn = document.getElementById('fullScreenBtn');
+    const vimeoVideo = document.getElementById('vimeoVideo');
+
+    fullScreenBtn.addEventListener('click', () => {
+      if (vimeoVideo.requestFullscreen) {
+        vimeoVideo.requestFullscreen();
+      } else if (vimeoVideo.webkitRequestFullscreen) { /* Safari */
+        vimeoVideo.webkitRequestFullscreen();
+      } else if (vimeoVideo.msRequestFullscreen) { /* IE11 */
+        vimeoVideo.msRequestFullscreen();
+      }
+    });
+  </script>
+
+</body>
+</html>
