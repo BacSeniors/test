@@ -63,12 +63,19 @@
       margin-top: 1.5rem;
       background: black;
     }
+
     .video-wrapper iframe {
       position: absolute;
-      top:0; left:0;
-      width:100%; height:100%;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
       border:0;
     }
+
+    /* Hide Vimeo fullscreen button */
+    iframe::-webkit-media-controls-fullscreen-button { display: none !important; }
+    .vp-controls .fullscreen { display:none !important; }
 
     #fullScreenBtn {
       position: absolute;
@@ -88,6 +95,10 @@
     }
     #fullScreenBtn:hover { transform: scale(1.03); background: rgba(255,255,255,1); }
     #fullScreenBtn svg { width: 20px; height: 20px; }
+
+    @media(min-width:768px){
+      .video-wrapper { padding-bottom: 50%; }
+    }
   </style>
 
 </head>
@@ -114,7 +125,7 @@
     <div class="md:hidden">
       <button id="menuBtn" class="p-2 rounded-md bg-white border shadow-sm" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
     </div>
@@ -156,13 +167,11 @@
         Lebanon National Week is a student-led celebration honoring Lebanese culture, history and creativity.
       </p>
 
-      <!-- FIXED UNIQUE ID -->
-      <div class="video-wrapper relative" id="videoWrapperMain">
+      <div class="video-wrapper relative" id="videoWrapper">
         <iframe
           id="vimeoVideo"
-          src="https://player.vimeo.com/video/1137461016?badge=0&autopause=0&player_id=0&app_id=58479"
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-          allowfullscreen
+          src="https://player.vimeo.com/video/1137461016?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&fullscreen=0"
+          allow="autoplay; picture-in-picture; clipboard-write; encrypted-media; web-share"
           title="National Week Final Video"
         ></iframe>
 
@@ -219,45 +228,32 @@
 </footer>
 
 <script>
-  // Mobile nav
+  // Mobile menu
   const menuBtn = document.getElementById('menuBtn');
   const mobileNav = document.getElementById('mobileNav');
   if (menuBtn && mobileNav) {
     menuBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
   }
 
+  // Smooth scroll
   const header = document.querySelector('header');
   function scrollToWithOffset(hash) {
-    const element = document.querySelector(hash);
-    if (!element) return;
-    const offset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 8;
-    const top = element.getBoundingClientRect().top + window.scrollY - offset;
+    const el = document.querySelector(hash);
+    if (!el) return;
+    const offset = header.offsetHeight + 8;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: 'smooth' });
   }
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e){
-      e.preventDefault();
-      scrollToWithOffset(this.getAttribute('href'));
-    });
-  });
-
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', function(e){
+  document.querySelectorAll('.nav-link, .mobile-link, footer a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
       e.preventDefault();
       if (mobileNav) mobileNav.classList.add('hidden');
-      scrollToWithOffset(this.getAttribute('href'));
+      scrollToWithOffset(link.getAttribute('href'));
     });
   });
 
-  document.querySelectorAll('footer a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      scrollToWithOffset(this.getAttribute('href'));
-    });
-  });
-
-  // Reveal on scroll
+  // Reveal on-scroll animation
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('active');
@@ -265,56 +261,27 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Fully working fullscreen toggle (desktop + iPhone)
-  (function setupFullscreen() {
-    const wrapper = document.getElementById("videoWrapperMain");
-    const iframe = document.getElementById("vimeoVideo");
-    const btn = document.getElementById("fullScreenBtn");
+  // Fullscreen Logic (iPhone-safe)
+  const wrapper = document.getElementById('videoWrapper');
+  const btn = document.getElementById('fullScreenBtn');
 
-    if (!wrapper || !iframe || !btn) return;
-
-    let player = null;
-    try { player = new Vimeo.Player(iframe); } catch {}
-
-    function isFullscreen() {
-      return (
-        document.fullscreenElement === wrapper ||
-        document.webkitFullscreenElement === wrapper
-      );
+  btn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      const req = wrapper.requestFullscreen ||
+                  wrapper.webkitRequestFullscreen ||
+                  wrapper.msRequestFullscreen;
+      req.call(wrapper);
+    } else {
+      document.exitFullscreen();
     }
+  });
 
-    function enter() {
-      const fs =
-        wrapper.requestFullscreen ||
-        wrapper.webkitRequestFullscreen ||
-        wrapper.msRequestFullscreen;
-
-      if (fs) fs.call(wrapper);
+  // iPhone — auto-exit fullscreen on orientation change
+  window.addEventListener("orientationchange", () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
     }
-
-    function exit() {
-      const efs =
-        document.exitFullscreen ||
-        document.webkitExitFullscreen ||
-        document.msExitFullscreen;
-
-      if (efs) efs.call(document);
-    }
-
-    btn.addEventListener("click", () => {
-      if (isFullscreen()) {
-        exit();
-        if (player) player.pause();
-      } else {
-        enter();
-        if (player) player.play();
-      }
-    });
-
-    document.addEventListener("fullscreenchange", () => {
-      btn.textContent = isFullscreen() ? "Exit Fullscreen" : "Full Screen";
-    });
-  })();
+  });
 </script>
 
 </body>
