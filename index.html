@@ -219,12 +219,14 @@
 </footer>
 
 <script>
+  // Mobile menu toggle
   const menuBtn = document.getElementById('menuBtn');
   const mobileNav = document.getElementById('mobileNav');
   if (menuBtn && mobileNav) {
     menuBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
   }
 
+  // Smooth scrolling
   const header = document.querySelector('header');
   function scrollToWithOffset(hash) {
     const element = document.querySelector(hash);
@@ -241,6 +243,7 @@
     });
   });
 
+  // Reveal animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('active');
@@ -248,28 +251,23 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  // Vimeo fullscreen via API
   (function setupVimeo() {
     const vimeoIframe = document.getElementById('vimeoVideo');
     const fullScreenBtn = document.getElementById('fullScreenBtn');
-    const wrapper = document.getElementById('videoWrapper');
-
     if (!vimeoIframe || !fullScreenBtn) return;
 
-    let player = null;
-    try { player = new Vimeo.Player(vimeoIframe); } catch { player = null; }
+    const player = new Vimeo.Player(vimeoIframe);
 
     fullScreenBtn.addEventListener('click', async () => {
-      const fsTarget = wrapper || vimeoIframe;
-      const requestFs = fsTarget.requestFullscreen || fsTarget.webkitRequestFullscreen || fsTarget.msRequestFullscreen;
-      if (requestFs) { try { requestFs.call(fsTarget); return; } catch {} }
-
-      if (player && typeof player.getVideoUrl === 'function') {
-        try { const url = await player.getVideoUrl(); window.open(url, '_blank'); return; } catch {}
+      try {
+        await player.requestFullscreen(); // works on iOS Safari & other devices
+      } catch (err) {
+        // fallback: open Vimeo page if fullscreen API fails
+        const src = vimeoIframe.getAttribute('src') || '';
+        const match = src.match(/player.vimeo.com\/video\/(\d+)/);
+        window.open(match ? 'https://vimeo.com/' + match[1] : src, '_blank');
       }
-
-      const src = vimeoIframe.getAttribute('src') || '';
-      const match = src.match(/player.vimeo.com\/video\/(\d+)/);
-      window.open(match ? 'https://vimeo.com/' + match[1] : src, '_blank');
     });
   })();
 </script>
