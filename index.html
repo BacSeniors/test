@@ -177,13 +177,29 @@
     </div>
   </section>
 
-  <section id="events" class="mt-14 reveal">
-    <h3 class="text-2xl font-semibold mb-4">Event Schedule</h3>
-    <p class="text-sm muted mb-6">Activities will appear here soon.</p>
+  <section id="events" class="mt-14">
+    <h3 class="text-2xl font-semibold mb-4 reveal">Event Schedule</h3>
+    <p class="text-sm muted mb-6 reveal">Activities lined up for the week:</p>
     <div class="space-y-4">
-      <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-200">
-        <h4 class="font-semibold">National Week Activities</h4>
-        <p class="text-sm muted">Location: Playground</p>
+      <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-200 reveal flex flex-col md:flex-row items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Playing_board_games.jpg" alt="Interactive Games" class="w-full md:w-48 h-32 object-cover rounded-lg">
+        <h4 class="font-semibold text-lg">Interactive Games</h4>
+      </div>
+      <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-200 reveal flex flex-col md:flex-row items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Dabke_performance.jpg" alt="Dabke Lessons" class="w-full md:w-48 h-32 object-cover rounded-lg">
+        <h4 class="font-semibold text-lg">Dabke Lessons</h4>
+      </div>
+      <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-200 reveal flex flex-col md:flex-row items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Zajal_performance.jpg" alt="Zajal Performance" class="w-full md:w-48 h-32 object-cover rounded-lg">
+        <h4 class="font-semibold text-lg">Zajal Performance</h4>
+      </div>
+      <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-200 reveal flex flex-col md:flex-row items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Trivia_game.jpg" alt="Trivia" class="w-full md:w-48 h-32 object-cover rounded-lg">
+        <h4 class="font-semibold text-lg">Trivia</h4>
+      </div>
+      <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-200 reveal flex flex-col md:flex-row items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Cultural_exploration.jpg" alt="Exploring Cultural Perspectives" class="w-full md:w-48 h-32 object-cover rounded-lg">
+        <h4 class="font-semibold text-lg">Exploring Cultural Perspectives</h4>
       </div>
     </div>
   </section>
@@ -249,6 +265,7 @@
       if (entry.isIntersecting) entry.target.classList.add('active');
     });
   }, { threshold: 0.12 });
+
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // Vimeo fullscreen via API
